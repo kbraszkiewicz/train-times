@@ -25,20 +25,20 @@ def getDepartureBoard(code):
             if train.get("subsequentCallingPoints") ==None:
                 continue
             if len(train["subsequentCallingPoints"][0]["callingPoint"])>0:
-            print(train["destination"][0]["locationName"])
+                #print(train["destination"][0]["locationName"])
 
-            stopsOut=[]
-            for i in train["subsequentCallingPoints"][0]["callingPoint"]:
-                stopsOut.append(Stop(i["locationName"],i["st"]))
+                stopsOut=[]
+                for i in train["subsequentCallingPoints"][0]["callingPoint"]:
+                    stopsOut.append(Stop(i["locationName"],i["st"]))
 
 
-            trainsOut.append(Train( "LDS",
-                    train["destination"][0]["locationName"],
-                    "?" if train.get("std") is None else train["std"],
-                    "On Time" if train.get("etd") is None else train["etd"],
-                    "N/A" if train.get("platform") is None else train["platform"],
-                    stopsOut
-                    ))
+                trainsOut.append(Train( "LDS",
+                        train["destination"][0]["locationName"],
+                        "?" if train.get("std") is None else train["std"],
+                        "On Time" if train.get("etd") is None else train["etd"],
+                        "N/A" if train.get("platform") is None else train["platform"],
+                        stopsOut
+                        ))
         return Board(
             "leeds",
             trainsOut
