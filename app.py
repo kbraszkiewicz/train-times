@@ -166,6 +166,7 @@ def addTrain():
     if not session.get("email"):
         # if not there in the session then redirect to the login page
         return redirect("/login")
+
     if request.method == 'POST':
         departure_station = request.form.get('departure_station')
         final_station = request.form.get('final_station')
@@ -180,11 +181,16 @@ def addTrain():
 
         print(departure_station, final_station, stops, platform, due_time)
 
+        return redirect(url_for('hello'))
 
-        return render_template('addTrain.html')
+
     return render_template('addTrain.html')
     
-
+@app.route("/logout", methods=['POST','GET'])
+@csrf.exempt
+def logout():
+    session.pop('email', default=None)
+    return redirect("/", code=302)
 
 # Returning board
 def getBoard(dep_board):
@@ -192,7 +198,7 @@ def getBoard(dep_board):
 
     conn = mysql.connect()
     cursor =conn.cursor()
-    cursor.execute(f'''SELECT * FROM trains WHERE departure_station="{dep_board}";''')
+    cursor.execute(f'''SELECT * FROM trains WHERE departure_station="{dep_board}" ORDER BY due;''')
     data = cursor.fetchall()
 
     for item in data:
