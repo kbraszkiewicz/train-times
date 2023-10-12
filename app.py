@@ -90,10 +90,14 @@ def login():
         # check they exist
         email = request.form.get('email')
         password = request.form.get('password')
-        print(f'email= {email},password={password}')
+
+        password_hash = hashlib.sha512((email + '-' + password).encode('utf-8')).hexdigest()
+
+
+        print(f'email= {email},password={password_hash}')
         conn = mysql.connect()
         cursor = conn.cursor()
-        cursor.execute(f'''SELECT * from user WHERE (email="{email}" AND pass="{password}");''')
+        cursor.execute(f'''SELECT * from user WHERE (email="{email}" AND pass="{password_hash}");''')
         data = cursor.fetchone()
         print(data)
         if data != None:
