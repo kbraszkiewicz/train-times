@@ -1,7 +1,23 @@
 from flask import Flask
 from flask import render_template
+from dataclasses import dataclass
+
 
 app = Flask(__name__, static_folder='static')
+
+@dataclass
+class Train:
+    departue_station: str
+    final_station:str
+    due_time:str
+    status:str
+    platform:str
+    stops:str
+
+@dataclass
+class Board:
+    station:str
+    trains:[Train]
 
 
 @app.route("/")
