@@ -162,6 +162,20 @@ def addTrain():
         # if not there in the session then redirect to the login page
         return redirect("/login")
     if request.method == 'POST':
+        departure_station = request.form.get('departure_station')
+        final_station = request.form.get('final_station')
+        stops = request.form.get('stops')
+        platform = request.form.get('platform')
+        due_time = request.form.get('due_time')
+
+        conn = mysql.connect()
+        cursor = conn.cursor()
+        cursor.execute(f'''INSERT INTO trains (departure_station,final_station,stops,due,platform) VALUES ("{departure_station}","{final_station}","{stops}","{due_time}","{platform}");''')
+        conn.commit()
+
+        print(departure_station, final_station, stops, platform, due_time)
+
+
         return render_template('addTrain.html')
     return render_template('addTrain.html')
     

@@ -1,0 +1,37 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title> Register Train </title>
+        <link rel="stylesheet" href="static/login.css">  
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <div class="page">
+          <div class="input">
+              <form action="{{ url_for('addTrain') }}" method="post">
+                  <h1 class="word">Register a new train</h1> 
+                  <div class="msg">{{ msg }}</div>
+                    <p> Enter Departure Station</p>
+                    <input id="departure_station" name="departure_station" type="text" placeholder="Enter departure station" class="textbox"/>
+
+                    <p> Enter Final Station</p>
+                    <input id="final_station" name="final_station" type="text" placeholder="Enter final station" class="textbox"/>
+
+                    <p> Enter Stops</p>
+                    <input id="stops" name="stops" type="text" placeholder="Enter stops" class="textbox"/>
+
+                    <p> Enter due time</p>
+                    <input id="due_time" name="due_time" type="datetime-local"/>
+
+                    <p> Enter platform</p>
+                    <input id="platform" name="platform" type="number"/>
+
+
+                    <input type="submit" class="btn submit" value="Submit">
+                </form>
+          </div>
+        </div>
+    </body>
+</html>
