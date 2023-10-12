@@ -81,6 +81,8 @@ def login():
         print(data)
         if data != None:
             return redirect(url_for('hello'))
+        else:
+            return render_template('login.html')
     return render_template('login.html')
 
 
@@ -88,4 +90,4 @@ def login():
 
 if __name__ == "__main__":
 
-    app.run(host="0.0.0.0", port=80, debug=1)
+    app.run(host="0.0.0.0", port=80, debug=1, use_reloader=True)
