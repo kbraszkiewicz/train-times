@@ -45,3 +45,11 @@ table>tbody>tr:nth-child(2n+1){
 .stopColoumn{
     width: 40%;
 }
+
+.ontime-False{
+    color: red;
+}   
+
+.ontime-True{
+    color: rgb(1, 197, 1);
+}

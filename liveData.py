@@ -9,7 +9,7 @@ def loadKey():
 
 def getLiveData(code):
     responce = requests.get(
-        f"https://api1.raildata.org.uk/1010-live-arrival-and-departure-boards-arr-and-dep/LDBWS/api/20220120/GetArrDepBoardWithDetails/{code}?numRows=50,timeWindow",
+        f"https://api1.raildata.org.uk/1010-live-departure-board-dep/LDBWS/api/20220120/GetDepBoardWithDetails/{code}?numRows=20",
         headers={"x-apikey":loadKey()}
     )
     return json.loads(responce.text)
@@ -19,13 +19,12 @@ def getDepartureBoard(code):
         data = getLiveData(code)
         trains = data["trainServices"]
         trainsOut=[]
-        print(trains)
         for train in trains:
-            print(train)
             if train.get("subsequentCallingPoints") ==None:
                 continue
             if len(train["subsequentCallingPoints"][0]["callingPoint"])>0:
                 #print(train["destination"][0]["locationName"])
+                print("INNER")
 
                 stopsOut=[]
                 for i in train["subsequentCallingPoints"][0]["callingPoint"]:
@@ -37,7 +36,8 @@ def getDepartureBoard(code):
                         "?" if train.get("std") is None else train["std"],
                         "On Time" if train.get("etd") is None else train["etd"],
                         "N/A" if train.get("platform") is None else train["platform"],
-                        stopsOut
+                        stopsOut,
+                        (not train.get("etd")) or train["etd"]=="n Time"
                         ))
         return Board(
             "leeds",

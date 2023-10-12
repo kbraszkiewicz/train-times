@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from typing import Optional
 
 @dataclass
 class Stop:
@@ -13,6 +14,7 @@ class Train:
     status:str
     platform:str
     stops:list[Stop]
+    on_time: Optional[bool] = False
 
 @dataclass
 class Board:
