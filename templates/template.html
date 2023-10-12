@@ -2,7 +2,10 @@
 
 <html>
     <head>
-        <link rel="stylesheet" href="static/style.css">
+        <link rel="stylesheet" href=" {{ url_for('static', filename='style.css') }} ">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible&display=swap" rel="stylesheet">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible&display=swap" rel="stylesheet">
@@ -17,22 +20,19 @@
             <table class="train table">
                 <thead>
                     <td>Destination</td>
+                    <td>Destination</td>
                     <td>Departure Time</td>
-                    <td>Cariages</td>
-                    <td>Expected Time</td>
+                    <td>Platform</td>
+                    <td>Status</td>
                 </thead>
+                {% for train in board.trains %}
                 <tr>
-                    <td> Burley Park</td>
-                    <td> 16:45 </td>
-                    <td> 3 </td>
-                    <td> 18:50 </td>  
+                    <td> {{train.final_station}}</td>
+                    <td> {{train.due_time}} </td>
+                    <td> {{train.platform}} </td>
+                    <td> {{train.status}} </td>  
                 </tr>
-                <tr>
-                    <td> Burley Park</td>
-                    <td> 16:45 </td>
-                    <td> 3 </td>
-                    <td> 18:50 </td>  
-                </tr>
+                {% endfor %}
 
             </table>
         </div>
