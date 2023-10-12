@@ -1,9 +1,35 @@
 body {
-    background-color: aqua;
+  font-family: 'Atkinson Hyperlegible', sans-serif;
 }
 
-html {
-    height: 100%;
+body html{
+  background-color: blue;
+  margin: 0;
+  padding: 0;
+}
+
+
+.page{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+  background-color: white;
+}
+.input{
+  border: 2px solid black;
+  border-radius: 10px;
+  padding: 10px;
+}
+.input>form{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.input p{
+  align-self: flex-start;
 }
 
 input[type=text], select {
@@ -31,21 +57,22 @@ form {
 }
 
 
-input[type=submit] {
+.btn{
     width: 100%;
-    background-color: #4CAF50;
-    color: white;
+    color: black;
     padding: 14px 20px;
     margin: 8px 0;
     border: none;
     border-radius: 4px;
     cursor: pointer;
-  }
-  
-  input[type=submit]:hover {
-    background-color: #45a049;
-  }
+}
 
-  p {
-    
-  }
+.btn:hover{
+  background-color: #45a049;
+  color: white;
+}
+
+.btn.submit{
+  background-color: #4CAF50;
+  color: white;
+}
