@@ -4,3 +4,4 @@ venv
 __pycache__
 
 apikey.txt
+flask_session
