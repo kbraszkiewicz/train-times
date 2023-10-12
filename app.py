@@ -6,7 +6,9 @@ from flask import request
 
 from forms import Login
 
-from flask import Flask, render_template, redirect, url_for
+from flask import Flask, render_template, redirect, url_for, session
+from flask_session import Session
+
 # from flask_bootstrap import Bootstrap5
 
 from flask_wtf.csrf import CSRFProtect
@@ -36,6 +38,10 @@ app.config['MYSQL_DATABASE_DB'] = 'trains'
 app.config['MYSQL_DATABASE_HOST'] = '192.168.1.106'
 app.config['MYSQL_DATABASE_PORT'] = 3308
 mysql.init_app(app)
+
+app.config["SESSION_PERMANENT"] = False
+app.config["SESSION_TYPE"] = "filesystem"
+Session(app)
 
 @dataclass
 class Stop:
@@ -101,13 +107,22 @@ def login():
         data = cursor.fetchone()
         print(data)
         if data != None:
+            session["email"] = request.form.get("email")
             return redirect(url_for('hello'))
         else:
             return render_template('login.html')
     return render_template('login.html')
 
-
-
+@app.route("/addTrain", methods=['POST','GET'])
+@csrf.exempt
+def addTrain():
+    if not session.get("email"):
+        # if not there in the session then redirect to the login page
+        return redirect("/login")
+    if request.method == 'POST':
+        return render_template('addTrain.html')
+    return render_template('addTrain.html')
+    
 
 # Returning board
 def getBoard(dep_board):
