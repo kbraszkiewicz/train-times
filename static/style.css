@@ -46,6 +46,7 @@ table>tbody>tr:nth-child(2n+1){
     width: 40%;
 }
 
+
 ul {
     list-style-type: none;
     margin: 0;
@@ -64,3 +65,12 @@ ul {
     padding: 5px 25px;
     text-decoration: none;
   }
+
+.ontime-False{
+    color: red;
+}   
+
+.ontime-True{
+    color: rgb(1, 197, 1);
+}
+

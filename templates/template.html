@@ -44,7 +44,7 @@
                     <td> {{train.final_station}}</td>
                     <td> {{train.due_time}} </td>
                     <td> {{train.platform}} </td>
-                    <td> {{train.status}} </td>  
+                    <td class="ontime-{{train.on_time}}"> {{train.status}} </td>  
                     <td> {% if train.stops|length > 0 %}
                         <marquee>
                         {% for stop in train.stops %}
