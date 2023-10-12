@@ -31,12 +31,6 @@ class Board:
 
 @app.route("/")
 def hello():
-    conn = mysql.connect()
-
-    cursor =conn.cursor()
-    cursor.execute('''SELECT * from user where id = 1''')
-    data = cursor.fetchone()
-    print(data)
     return render_template("template.html")
 
 
