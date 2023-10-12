@@ -70,8 +70,8 @@ def hello():
     getBoard("LDS")
     train1 = Train("Leeds","HRS","19:45","On Time","6a","[stops]")
     train2 = Train("Leeds","HRS","19:45","On Time","6a","[stops]")
-    board = Board("LDS",[train1,train2])
-    return render_template("template.html",board=board)
+    board = getBoard("LDS") # Board("LDS",[train1,train2])
+    return render_template("template.html",board=board,code="LDS")
 
 @app.route("/station/<code>")
 def station(code):
@@ -89,7 +89,7 @@ def station(code):
 def stationLive(code):
     print(code)
     board = getDepartureBoard(code)
-    return render_template("template.html",board=board)
+    return render_template("template.html",board=board,code=code)
 
 @app.route("/login", methods=['POST', 'GET'])
 @csrf.exempt
