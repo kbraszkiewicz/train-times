@@ -46,6 +46,26 @@ table>tbody>tr:nth-child(2n+1){
     width: 40%;
 }
 
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+  
+  li {
+    float: left;
+  }
+  
+  li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 5px 25px;
+    text-decoration: none;
+  }
+
 .ontime-False{
     color: red;
 }   
@@ -53,3 +73,4 @@ table>tbody>tr:nth-child(2n+1){
 .ontime-True{
     color: rgb(1, 197, 1);
 }
+

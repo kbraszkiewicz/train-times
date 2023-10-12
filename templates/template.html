@@ -13,6 +13,21 @@
     <body>
         <header>
             <h1> Train times from {{code}}</h1>
+
+
+            <ul>
+                {% if not session["email"] %}
+                <li><a href="/login">login</a></li>
+                <li><a href="/register" >register</a></li>
+                {% endif %}
+                {% if session["email"]%}
+                <li><a href="/addTrain">add train</a></li>
+                <li><a href="/logout">logout</a></li>
+                {% endif %}
+            </ul>
+            <ul>
+                
+            </ul>
         </header>
 
         <div class="content">
