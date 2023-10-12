@@ -19,6 +19,7 @@ import hashlib
 from liveData import getDepartureBoard
 from data import Stop, Train, Board
 
+import re
 
 
 
@@ -120,6 +121,10 @@ def login():
 def register():
     if request.method == 'POST':
         email = request.form.get('email')
+
+        if checkEmailValid(email) == False:
+            print('Email regex check failed')
+            return redirect(url_for('register'))
         
 
         conn = mysql.connect()
@@ -140,7 +145,7 @@ def register():
         print(password,conf_password)
 
         if password != conf_password:
-            flash('Error - Passwords do not match')
+            # flash('Error - Passwords do not match')
             print('passes dont match')
             return redirect(url_for('register'))
 
@@ -189,6 +194,15 @@ def getBoard(dep_board):
     
     return board
 
+def checkEmailValid(email):
+    regex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,7}\b'
+    if(re.fullmatch(regex, email)):
+        return True
+    return False
+
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=80, debug=1, use_reloader=True)
+
+
+
