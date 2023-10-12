@@ -9,6 +9,8 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible&display=swap" rel="stylesheet">
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
     </head>
 
     <body>
@@ -20,10 +22,10 @@
             <table class="train table">
                 <thead>
                     <td>Destination</td>
-                    <td>Destination</td>
                     <td>Departure Time</td>
                     <td>Platform</td>
                     <td>Status</td>
+                    <td  class="stopColoumn">Stops</td>
                 </thead>
                 {% for train in board.trains %}
                 <tr>
@@ -31,6 +33,15 @@
                     <td> {{train.due_time}} </td>
                     <td> {{train.platform}} </td>
                     <td> {{train.status}} </td>  
+                    <td> {% if train.stops|length > 0 %}
+                        <marquee>
+                        {% for stop in train.stops %}
+                            {{stop.name}} ({{stop.arival_time}})
+                        {% endfor %}
+                        </marquee>
+                        {% endif %}
+
+                    </td>
                 </tr>
                 {% endfor %}
 

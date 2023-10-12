@@ -27,12 +27,12 @@ table{
 
 table>thead{
     font-weight: bold;
-    font-size: 2vh;
+    font-size: 3vh;
 
     background-color: lightgray;
 }
 table>tbody{
-    font-size: 1.5vh;
+    font-size: 2vh;
 }
 
 table>tbody>tr:nth-child(2n){
@@ -40,4 +40,8 @@ table>tbody>tr:nth-child(2n){
 }
 table>tbody>tr:nth-child(2n+1){
     background-color: gray;
+}
+
+.stopColoumn{
+    width: 40%;
 }
