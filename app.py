@@ -3,6 +3,7 @@ from flask import Flask
 from flask import render_template
 from dataclasses import dataclass
 from flask import request
+from flask import flash
 
 from forms import Login
 
@@ -106,7 +107,44 @@ def login():
             return render_template('login.html')
     return render_template('login.html')
 
+@app.route("/register", methods=['POST','GET'])
+@csrf.exempt
+def register():
+    if request.method == 'POST':
+        email = request.form.get('email')
+        
 
+        conn = mysql.connect()
+        cursor = conn.cursor()
+        cursor.execute(f'''SELECT * FROM user where email="{email}"''')
+        data = cursor.fetchall()
+
+        # check if account already exists
+        print(len(data))
+        if len(data) > 0:
+            
+            return redirect(url_for('register'))
+        
+        
+        # hash pass
+        password = request.form.get('password')
+        conf_password = request.form.get('password-2')
+        print(password,conf_password)
+
+        if password != conf_password:
+            flash('Error - Passwords do not match')
+            print('passes dont match')
+            return redirect(url_for('register'))
+
+        password_hash = hashlib.sha512((email + '-' + password).encode('utf-8')).hexdigest()
+        print(f'email= {email},password={password_hash}')
+        # add new user creds to db
+        cursor.execute(f'''INSERT INTO user (email, pass) VALUES ("{email}", "{password_hash}") ''')
+        conn.commit()
+
+        return redirect(url_for('hello'))
+
+    return render_template('register.html')
 
 
 # Returning board
