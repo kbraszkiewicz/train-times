@@ -1,12 +1,32 @@
 from flask import Flask
+
 from flask import render_template
 from dataclasses import dataclass
+from flask import request
+
+from forms import Login
+
+from flask import Flask, render_template, redirect, url_for
+# from flask_bootstrap import Bootstrap5
+
+from flask_wtf.csrf import CSRFProtect
 from flaskext.mysql import MySQL
 
 from liveData import getDepartureBoard
 from data import Stop, Train, Board
 
+
+
+
+
 app = Flask(__name__, static_folder='static')
+csrf = CSRFProtect(app)
+
+
+# Bootstrap-Flask requires this line
+# bootstrap = Bootstrap5(app)
+# Flask-WTF requires this line
+
 
 mysql = MySQL()
 app.config['MYSQL_DATABASE_USER'] = 'root'
@@ -61,10 +81,26 @@ def stationLive(code):
     board = getDepartureBoard(code)
     return render_template("template.html",board=board)
 
-@app.route("/login")
+@app.route("/login", methods=['POST', 'GET'])
+@csrf.exempt
 def login():
-    
-    return "Login Page!"
+    if request.method == 'POST':
+        # check they exist
+        email = request.form.get('email')
+        password = request.form.get('password')
+        print(f'email= {email},password={password}')
+        conn = mysql.connect()
+        cursor = conn.cursor()
+        cursor.execute(f'''SELECT * from user WHERE (email="{email}" AND pass="{password}");''')
+        data = cursor.fetchone()
+        print(data)
+        if data != None:
+            return redirect(url_for('hello'))
+        else:
+            return render_template('login.html')
+    return render_template('login.html')
+
+
 
 
 # Returning board
@@ -92,4 +128,4 @@ def getBoard(dep_board):
 
 if __name__ == "__main__":
 
-    app.run(host="0.0.0.0", port=80, debug=1)
+    app.run(host="0.0.0.0", port=80, debug=1, use_reloader=True)
