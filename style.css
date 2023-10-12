@@ -1,0 +1,42 @@
+html body{
+    margin: 0;
+    padding: 0;
+}
+
+header{
+    width: 100%;
+    height: 20%;
+
+    background-color: blue;
+    padding: 10px;
+    padding-left: 50px;
+
+}
+
+header>h1{
+    color: yellow;
+    font-size: 5vh;
+}
+
+table{
+    width: 100vw;
+    text-align: center;
+    border-spacing: 0;
+}
+
+table>thead{
+    font-weight: bold;
+    font-size: 2vh;
+
+    background-color: lightgray;
+}
+table>tbody{
+    font-size: 1.5vh;
+}
+
+table>tbody>tr:nth-child(2n){
+    background-color: white;
+}
+table>tbody>tr:nth-child(2n+1){
+    background-color: gray;
+}
