@@ -1,7 +1,7 @@
 import requests
 import json
 
-from data import Board, Train
+from data import Board, Train, Stop
 def loadKey():
     with open("apikey.txt") as file:
         key = file.read()
@@ -26,12 +26,18 @@ def getDepartureBoard(code):
         if len(train["subsequentCallingPoints"][0]["callingPoint"])>0:
 
             print(train["destination"][0]["locationName"])
+
+            stopsOut=[]
+            for i in train["subsequentCallingPoints"][0]["callingPoint"]:
+                stopsOut.append(Stop(i["locationName"],i["st"]))
+
+
             trainsOut.append(Train( "LDS",
                     train["destination"][0]["locationName"],
-                    train["std"],
+                    "?" if train.get("std") is None else train["std"],
                     "On Time" if train.get("etd") is None else train["etd"],
                     "N/A" if train.get("platform") is None else train["platform"],
-                    None
+                    stopsOut
                     ))
     return Board(
         "leeds",
