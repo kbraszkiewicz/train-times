@@ -38,6 +38,7 @@ class Board:
 
 @app.route("/")
 def hello():
+    getBoard("LDS")
     train1 = Train("Leeds","HRS","19:45","On Time","6a","[stops]")
     train2 = Train("Leeds","HRS","19:45","On Time","6a","[stops]")
     board = Board("LDS",[train1,train2])
@@ -45,6 +46,8 @@ def hello():
 
 @app.route("/station/<code>")
 def station(code):
+
+    print(getBoard(code))
     print(code)
 
     train1 = Train("Leeds","HRS","19:45","On Time","6a","[stops]")
@@ -62,6 +65,29 @@ def stationLive(code):
 def login():
     
     return "Login Page!"
+
+
+# Returning board
+def getBoard(dep_board):
+    board = Board(dep_board,[])
+
+    conn = mysql.connect()
+    cursor =conn.cursor()
+    cursor.execute(f'''SELECT * FROM trains WHERE departure_station="{dep_board}";''')
+    data = cursor.fetchall()
+
+    for item in data:
+        train = Train(
+            item[1],
+            item[2],
+            item[4],
+            item[5],
+            item[6],
+            item[3],
+        )
+        board.trains.append(train)        
+    
+    return board
 
 
 if __name__ == "__main__":
