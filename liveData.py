@@ -15,16 +15,16 @@ def getLiveData(code):
     return json.loads(responce.text)
 
 def getDepartureBoard(code):
-    data = getLiveData(code)
-    trains = data["trainServices"]
-    trainsOut=[]
-    print(trains)
-    for train in trains:
-        print(train)
-        if train.get("subsequentCallingPoints") ==None:
-            continue
-        if len(train["subsequentCallingPoints"][0]["callingPoint"])>0:
-
+    try:
+        data = getLiveData(code)
+        trains = data["trainServices"]
+        trainsOut=[]
+        print(trains)
+        for train in trains:
+            print(train)
+            if train.get("subsequentCallingPoints") ==None:
+                continue
+            if len(train["subsequentCallingPoints"][0]["callingPoint"])>0:
             print(train["destination"][0]["locationName"])
 
             stopsOut=[]
@@ -39,12 +39,12 @@ def getDepartureBoard(code):
                     "N/A" if train.get("platform") is None else train["platform"],
                     stopsOut
                     ))
-    return Board(
-        "leeds",
-        trainsOut
-    )
+        return Board(
+            "leeds",
+            trainsOut
+        )
     
-
-
+    except:
+        return Board("leeds",[])
 
 getDepartureBoard("LDS")

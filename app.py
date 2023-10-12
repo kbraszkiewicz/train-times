@@ -11,6 +11,7 @@ from flask import Flask, render_template, redirect, url_for
 
 from flask_wtf.csrf import CSRFProtect
 from flaskext.mysql import MySQL
+import hashlib
 
 from liveData import getDepartureBoard
 from data import Stop, Train, Board
@@ -72,8 +73,9 @@ def station(code):
 
     train1 = Train("Leeds","HRS","19:45","On Time","6a","[stops]")
     train2 = Train("Leeds","HRS","19:45","On Time","6a","[stops]")
-    board = Board("LDS",[train1,train2])
-    return render_template("template.html",board=board)
+    #board = Board("LDS",[train1,train2])
+    board = getBoard(code)
+    return render_template("template.html",board=board,code=code)
 
 @app.route("/station/live/<code>")
 def stationLive(code):
@@ -127,5 +129,4 @@ def getBoard(dep_board):
 
 
 if __name__ == "__main__":
-
     app.run(host="0.0.0.0", port=80, debug=1, use_reloader=True)
