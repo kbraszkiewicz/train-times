@@ -37,7 +37,7 @@ def getDepartureBoard(code):
                         "On Time" if train.get("etd") is None else train["etd"],
                         "N/A" if train.get("platform") is None else train["platform"],
                         stopsOut,
-                        (not train.get("etd")) or train["etd"]=="n Time"
+                        (not train.get("etd")) or train["etd"]=="On time"
                         ))
         return Board(
             "leeds",
